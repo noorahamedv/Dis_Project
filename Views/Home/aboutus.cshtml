@@ -1,0 +1,218 @@
+﻿@{
+    ViewData["Title"] = "About Us";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tampa Bay Attractions - About Us</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <style>
+        /* Additional styles for about us page */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            padding: 20px;
+            margin-top: 20px; /* Adjusted to move content further up */
+        }
+
+        h1 {
+            font-size: 48px; /* Increase font size */
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 20px; /* Increase font size */
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        nav {
+            position: absolute; /* Position the navigation */
+            top: 20px; /* Place it 20px from the top */
+            right: 20px; /* Place it 20px from the right */
+        }
+
+            nav ul {
+                list-style-type: none;
+                padding: 0;
+                text-align: right; /* Align navigation links to the right */
+            }
+
+                nav ul li {
+                    display: inline;
+                    margin-left: 20px; /* Add margin to separate links */
+                }
+
+                    nav ul li a {
+                        color: #333; /* Set text color to dark */
+                        text-decoration: none;
+                        font-size: 24px; /* Increase font size */
+                        font-weight: bold; /* Make navigation links bold */
+                        background-color: #f2f2f2; /* Add background color */
+                        padding: 10px 20px; /* Add padding */
+                        border-radius: 5px; /* Add border radius */
+                        transition: background-color 0.3s; /* Add transition effect */
+                    }
+
+                        nav ul li a:hover {
+                            background-color: #ddd; /* Change background color on hover */
+                        }
+
+        footer {
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .team-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .team-member {
+            width: 300px;
+            padding: 20px;
+            margin: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            text-align: center; /* Center text */
+            position: relative; /* Added position relative */
+        }
+
+            .team-member h2 {
+                font-size: 24px;
+                margin-bottom: 10px;
+                text-align: center; /* Center text */
+            }
+
+            .team-member p {
+                font-size: 18px;
+                margin-bottom: 20px;
+                text-align: center; /* Center text */
+            }
+
+            .team-member img {
+                width: 100%;
+                height: 300px;
+                object-fit: cover;
+                border-radius: 10px;
+                margin-bottom: 10px;
+            }
+
+        /* Style for the image at the bottom */
+        .bottom-image {
+            margin-top: 50px; /* Adjust margin top as needed */
+            width: 50%; /* Adjust the width of the image */
+            margin: 0 auto; /* Center the image */
+        }
+
+            .bottom-image img {
+                width: 100%; /* Adjust image width */
+                height: auto; /* Maintain aspect ratio */
+                border-radius: 10px; /* Add border radius */
+            }
+
+        /* GitHub link style */
+        .github-box {
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+            width: fit-content;
+            margin: 0 auto;
+        }
+
+        .github-link {
+            color: white;
+            text-decoration: none;
+        }
+
+            .github-link:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>@Html.ActionLink("Home", "Index", "", null, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("Attractions", "Attractions", "", null, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("Reviews", "Reviews", "", null, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("Statistics", "Statistics", "", null, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("About Us", "Aboutus", "", null, new { @class = "nav-link" })</li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content">
+        <br>
+        <h1>Meet the Team</h1>
+        <div class="team-container">
+            <div class="team-member">
+                <img src="~/images/haritha.jpg" alt="Haritha">
+                <h2>Haritha</h2>
+                <p>Haritha worked on responsive layout design, color schemes, and JavaScript. She implemented the interactive features and responsive design, making the user experience seamless. She helped Karishma in building the CRUD Operations and assisted Priya in creating the ERD diagram.</p>
+                <div class="github-links">
+                    <a href="https://github.com/harithabalineni">GitHub</a>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <img src="~/images/karishma.jpg" alt="Karishma">
+                <h2>Karishma</h2>
+                <p>The main idea of this project was designed by Karishma. She conducted initial research on the theme of this webpage and shared her thoughts and designs with the team. The idea was immediately embraced by the team. She also assisted Noor with programming. Her contribution was to the Attractions page of this website.</p>
+                <div class="github-links">
+                    <a href="https://github.com/nagarkuntakarishma">GitHub</a>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <img src="~/images/priya.jpg" alt="Lakshmi Priya">
+                <h2>Lakshmi Priya</h2>
+                <p>Priya was the person who kept the team going. She pushed the team to meet deadlines and conducted meetings to ensure that the team was progressing in the right direction. She contributed to the user interfaces and styling. Her contribution was in making the About Us page.</p>
+                <div class="github-links">
+                    <a href="https://github.com/lakshmipriya1980">GitHub</a>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <img src="~/images/Noor.jpg" alt="Noor Ahamed">
+                <h2>Noor Ahamed</h2>
+                <p>Noor contributed to programming this HTML page. With his past experience as a web page developer, he provided useful insights on HTML programming. He assisted the team whenever they encountered errors and roadblocks in programming. His contribution was to the Home page and Unemployment page.</p>
+                <div class="github-links">
+                    <a href="https://github.com/noorahamedv/">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GitHub link box -->
+    <div class="github-box">
+        <a href="https://github.com/noorahamedv/Assignment_LookAndFeel" class="github-link">Project GitHub</a>
+    </div>
+
+    <!-- Image at the bottom -->
+    <div class="bottom-image">
+        <h2>Entity-Relationship Diagram (ERD)</h2>
+        <img src="~/images/erd.jpeg" alt="Description of your image">
+    </div>
+</body>
+

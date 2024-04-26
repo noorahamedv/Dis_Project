@@ -1,0 +1,263 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tampa Bay Attractions - Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional styles for index page */
+        body {
+            margin: 0; /* Remove default margin */
+            font-family: Arial, sans-serif; /* Set default font family */
+        }
+
+        .background-container {
+            background-image: url("images/tampa_bay.jpg.jpg"); /* Set background image */
+            background-size: cover; /* Cover the entire background */
+            background-position: center; /* Center the background image */
+            filter: brightness(90%); /* Decrease brightness of background image */
+            min-height: 100vh; /* Set minimum height to cover the viewport */
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .content {
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* Add semi-transparent white background to make text readable */
+            border-radius: 10px; /* Add border radius for a nicer look */
+        }
+
+        h1 {
+            font-size: 80px; /* Increase font size */
+            margin-bottom: 20px;
+            color: #333; /* Set text color to dark */
+        }
+
+        p {
+            font-size: 20px; /* Increase font size */
+            color: #333; /* Set text color to dark */
+            margin-bottom: 30px;
+        }
+
+        nav {
+            position: absolute; /* Position the navigation */
+            top: 20px; /* Place it 20px from the top */
+            right: 20px; /* Place it 20px from the right */
+        }
+
+            nav ul {
+                list-style-type: none;
+                padding: 0;
+                text-align: right; /* Align navigation links to the right */
+            }
+
+                nav ul li {
+                    display: inline;
+                    margin-left: 20px; /* Add margin to separate links */
+                }
+
+                    nav ul li a {
+                        color: #333; /* Set text color to dark */
+                        text-decoration: none;
+                        font-size: 24px; /* Increase font size */
+                        font-weight: bold; /* Make navigation links bold */
+                        background-color: #f2f2f2; /* Add background color */
+                        padding: 10px 20px; /* Add padding */
+                        border-radius: 5px; /* Add border radius */
+                        transition: background-color 0.3s; /* Add transition effect */
+                    }
+
+                        nav ul li a:hover {
+                            background-color: #ddd; /* Change background color on hover */
+                        }
+
+        .btn {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 30px; /* Increase font size */
+            margin: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            .btn:hover {
+                background-color: #2980b9;
+            }
+
+        .form-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+        }
+
+        .form-container {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 10px;
+        }
+
+            .form-container input[type=text], .form-container input[type=email], .form-container input[type=password] {
+                width: calc(100% - 20px);
+                padding: 10px;
+                margin: 10px 0;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            .form-container button {
+                background-color: #3498db;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                width: 100%;
+                font-size: 20px;
+            }
+
+                .form-container button:hover {
+                    background-color: #2980b9;
+                }
+
+            .form-container .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+                .form-container .close:hover,
+                .form-container .close:focus {
+                    color: black;
+                    text-decoration: none;
+                    cursor: pointer;
+                }
+
+        footer {
+            background-color: #333; /* Set background color to dark */
+            color: white; /* Set text color to white */
+            text-align: center; /* Center align text */
+            padding: 20px 0; /* Add padding */
+            width: 100%; /* Set width to full */
+            position: fixed; /* Fix the footer to the bottom */
+            bottom: 0; /* Align to the bottom */
+        }
+
+        .footer-links {
+            margin-bottom: 10px; /* Add margin to separate links */
+        }
+
+            .footer-links a {
+                color: white; /* Set link color to white */
+                text-decoration: none;
+                margin: 0 10px; /* Add margin to separate links */
+                font-size: 16px; /* Reduce font size */
+            }
+
+                .footer-links a:hover {
+                    text-decoration: underline; /* Add underline on hover */
+                }
+    </style>
+    <script>
+        var users = []; // Array to store user data
+
+        function showForm(formType) {
+            var formHTML = {
+                'signin': '<form class="form-container" id="signin-form"><span class="close" onclick="closeForm()">&times;</span><input type="email" id="signin-email" placeholder="Email" required/><input type="password" id="signin-password" placeholder="Password" required/><button onclick="signIn()">Sign In</button><div id="signin-error" class="error-message"></div></form>',
+                'signup': '<form class="form-container" id="signup-form"><span class="close" onclick="closeForm()">&times;</span><input type="text" id="signup-name" placeholder="Name" required/><input type="email" id="signup-email" placeholder="Email" required/><input type="password" id="signup-password" placeholder="Password" required/><button onclick="signUp()">Sign Up</button><div id="signup-error" class="error-message"></div></form>'
+            };
+            document.getElementById('form-popup').innerHTML = formHTML[formType];
+            document.getElementById('form-popup').style.display = 'block';
+        }
+
+        function closeForm() {
+            document.getElementById('form-popup').style.display = 'none';
+        }
+
+        function signIn() {
+            var email = document.getElementById('signin-email').value;
+            var password = document.getElementById('signin-password').value;
+
+            // Check if user exists
+            var user = users.find(u => u.email === email && u.password === password);
+            if (user) {
+                alert('Sign in successful!');
+                closeForm(); // Close the form after successful sign-in
+            } else {
+                document.getElementById('signin-error').innerText = 'Invalid email or password.';
+            }
+        }
+
+        function signUp() {
+            var name = document.getElementById('signup-name').value;
+            var email = document.getElementById('signup-email').value;
+            var password = document.getElementById('signup-password').value;
+
+            // Check if email already exists
+            var existingUser = users.find(u => u.email === email);
+            if (existingUser) {
+                document.getElementById('signup-error').innerText = 'Email already exists. Please use a different email.';
+            } else {
+                // Add new user to the array
+                users.push({ name: name, email: email, password: password });
+                alert('Sign up successful!');
+                closeForm(); // Close the form after successful sign-up
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="background-container">
+        <header>
+            <nav>
+                <ul>
+                    <li>@Html.ActionLink("Home", "Index", "", null, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Attractions", "Attractions", "", null, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Reviews", "Reviews", "", null, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Statistics", "Statistics", "", null, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("About Us", "Aboutus", "", null, new { @class = "nav-link" })</li>
+                </ul>
+            </nav>
+        </header>
+        <div class="content">
+            <div>
+                <h1>Welcome to Tampa Bay Attractions</h1>
+                <p>Explore the beauty and excitement of Tampa Bay!</p>
+            </div>
+            <div>
+                <a href="javascript:showForm('signin');" class="btn">Sign In</a>
+                <a href="javascript:showForm('signup');" class="btn">Sign Up</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign-in and Sign-up Popup -->
+    <div id="form-popup" class="form-popup"></div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#">Contact Us</a>
+            <a href="#">Customer Service</a>
+        </div>
+    </footer>
+
+    </body>

@@ -1,0 +1,515 @@
+﻿@{
+    ViewData["Title"] = "Attractions";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tampa Bay Attractions - Attractions</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional styles for attractions page */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-image: url('images/tampa.jpg'); /* Add background image */
+            background-size: cover; /* Cover the entire viewport */
+            background-position: center; /* Center the background image */
+            background-repeat: no-repeat; /* Do not repeat the background image */
+            font-family: Arial, sans-serif; /* Change font family */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            padding: 20px;
+            margin-top: 50px; /* Adjusted to move content further up */
+            color: white; /* Set text color to white */
+        }
+
+        h1 {
+            font-size: 48px; /* Increase font size */
+            margin-bottom: 20px;
+            color: #333; /* Set text color to dark */
+        }
+
+        h2 {
+            font-size: 28px; /* Increase font size */
+            margin-bottom: 10px;
+            color: #333; /* Set text color to dark */
+        }
+
+        p {
+            font-size: 20px; /* Increase font size */
+            color: #555; /* Set text color to gray */
+            margin-bottom: 30px;
+        }
+
+        nav {
+            position: absolute; /* Position the navigation */
+            top: 20px; /* Place it 20px from the top */
+            right: 20px; /* Place it 20px from the right */
+        }
+
+            nav ul {
+                list-style-type: none;
+                padding: 0;
+                text-align: right; /* Align navigation links to the right */
+            }
+
+                nav ul li {
+                    display: inline;
+                    margin-left: 20px; /* Add margin to separate links */
+                }
+
+                    nav ul li a {
+                        color: #333; /* Set text color to dark */
+                        text-decoration: none;
+                        font-size: 24px; /* Increase font size */
+                        font-weight: bold; /* Make navigation links bold */
+                        background-color: #f2f2f2; /* Add background color */
+                        padding: 10px 20px; /* Add padding */
+                        border-radius: 5px; /* Add border radius */
+                        transition: background-color 0.3s; /* Add transition effect */
+                    }
+
+                        nav ul li a:hover {
+                            background-color: #ddd; /* Change background color on hover */
+                        }
+
+        .btn {
+            background-color: #3498db; /* Change background color to blue */
+            color: white;
+            padding: 15px 30px; /* Increase padding */
+            text-decoration: none;
+            border-radius: 8px; /* Increase border radius */
+            font-size: 24px; /* Increase font size */
+            margin: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Change font family */
+            border: none; /* Remove border */
+            outline: none; /* Remove outline */
+        }
+
+            .btn:hover {
+                background-color: #2980b9; /* Darken the background color on hover */
+            }
+
+        .attraction {
+            margin-bottom: 20px;
+        }
+
+            .attraction img {
+                width: 1000px;
+                height: 400px; /* Set a fixed height for all images */
+                border-radius: 10px; /* Add border radius */
+                object-fit: fill; /* Ensure the image covers the container */
+            }
+
+            .attraction p {
+                font-size: 18px;
+                color: #555; /* Set text color to gray */
+                margin-top: 10px;
+            }
+
+        footer {
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto; /* Center the modal */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px; /* Limit max width */
+            border-radius: 10px; /* Add border radius */
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+            }
+
+        /* Additional styles for buttons in modal */
+        .booking-btn {
+            background-color: #4CAF50; /* Green */
+        }
+
+        /* Form styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        input[type="date"],
+        input[type="time"],
+        input[type="number"] {
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 18px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 300px;
+        }
+
+        input[type="submit"] {
+            margin-top: 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 24px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            input[type="submit"]:hover {
+                background-color: #2980b9;
+            }
+
+        /* Styling for edit and cancel buttons */
+        .edit-btn, .cancel-btn {
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 24px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .edit-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            margin-right: 10px;
+        }
+
+            .edit-btn:hover {
+                background-color: #2980b9;
+            }
+
+        .cancel-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+        }
+
+            .cancel-btn:hover {
+                background-color: #c0392b;
+            }
+
+        /* Styles for My Bookings section */
+        #myBookings {
+            background-color: #f2f2f2;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+            #myBookings h2 {
+                margin-bottom: 10px;
+            }
+
+            #myBookings ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+            #myBookings li {
+                margin-bottom: 10px;
+                border-bottom: 1px solid #ccc;
+                padding-bottom: 10px;
+            }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>@Html.ActionLink("Home", "Index", "", null, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("Attractions", "Attractions", "", null, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("Reviews", "Reviews", "", null, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("Statistics", "Statistics", "", null, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("About Us", "Aboutus", "", null, new { @class = "nav-link" })</li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content">
+        <h1>Top Attractions in Tampa Bay</h1>
+        <div class="attraction">
+            <h2>The Florida Aquarium</h2>
+            <img src="~/images/aquarium.jpg" alt="Florida Aquarium">
+            <p>The Florida Aquarium in Tampa is like a magical underwater world right in the heart of the city. It's not just any aquarium; it's a place where you can get up close and personal with all sorts of cool sea creatures. From colorful fish to playful otters and even majestic sharks, there's something for everyone to enjoy. And hey, if you're feeling brave, you can even dive in and swim with some of the ocean's most fascinating inhabitants. Plus, they're all about spreading the word on how important it is to protect our oceans, so you'll leave feeling like a marine conservation hero. So, whether you're a hardcore marine enthusiast or just looking for a fun day out with the family, the Florida Aquarium is definitely worth checking out!</p>
+            <button class="btn booking-btn" onclick="openModal('Florida Aquarium')">Book Your Tickets</button>
+            <button class="btn manage-btn" onclick="openManageModal('aquarium')">Manage Bookings</button>
+        </div>
+        <div class="attraction">
+            <h2>Busch Gardens</h2>
+            <img src="~/images/buschgardens.jpg" alt="Busch Gardens">
+            <p>So, Busch Gardens in Tampa Bay is like this epic mashup of a zoo and an amusement park. It's where you can unleash your inner adventurer and get your adrenaline pumping on some seriously wild rides, all while surrounded by lush greenery and exotic animals. Picture this: you're screaming your lungs out on a roller coaster one minute, then chilling with some cuddly koalas or majestic giraffes the next. They've got everything from heart-pounding thrill rides to family-friendly attractions, so there's something for everyone. And don't even get me started on their live shows and events – they're like a non-stop party with a side of animal awesomeness. So, if you're up for a day of adventure, excitement, and maybe a few animal encounters, Busch Gardens is the place to be!</p>
+            <button class="btn booking-btn" onclick="openModal('Busch Gardens')">Book Your Passes</button>
+            <button class="btn manage-btn" onclick="openManageModal('buschgardens')">Manage Bookings</button>
+        </div>
+        <div class="attraction">
+            <h2>Clearwater Beach</h2>
+            <img src="~/images/beach.jpg" alt="Clearwater Beach">
+            <p>Clearwater Beach, dude, it's like the ultimate chill spot along Florida's Gulf Coast. Picture this: powdery white sand stretching as far as the eye can see, crystal-clear turquoise waters that practically beg you to take a dip, and the most epic sunsets you've ever laid eyes on. It's the kind of place where you can kick back with a cold drink in hand, soak up some rays, and just let all your worries drift away on the gentle sea breeze. And if you're feeling adventurous, there are all sorts of water sports to try, from jet skiing to parasailing. Plus, the beach vibe here is totally laid-back, with tons of cool beach bars and restaurants serving up fresh seafood and killer cocktails. So, whether you're looking to catch some waves, work on your tan, or simply unwind in paradise, Clearwater Beach has got you covered, man.</p>
+            <button class="btn booking-btn" onclick="openModal('Clearwater Beach')">Rent a Tent</button>
+            <button class="btn manage-btn" onclick="openManageModal('beach')">Manage Bookings</button>
+        </div>
+    </div>
+
+
+
+    <!-- My Bookings section -->
+    <div id="myBookings">
+        <h2>My Bookings</h2>
+        <ul id="bookingsList"></ul>
+    </div>
+
+    <!-- Modal for booking -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="ticketCost"></p>
+            <form id="bookingForm">
+                <label for="date">Select Date:</label>
+                <input type="date" id="date" name="date" required>
+                <label for="time">Select Time:</label>
+                <input type="time" id="time" name="time" required>
+                <label for="numTickets">Number of Tickets:</label>
+                <input type="number" id="numTickets" name="numTickets" min="1" required>
+                <p id="totalCost"></p>
+                <input type="submit" value="Book Now" class="btn">
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for managing bookings -->
+    <div id="manageModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeManageModal()">&times;</span>
+            <h2 id="manageModalTitle"></h2>
+            <!-- Display booking management options here -->
+            <button class="btn edit-btn" onclick="openEditModal()">Edit Booking</button>
+            <button class="btn cancel-btn" onclick="cancelBooking()">Cancel Booking</button>
+        </div>
+    </div>
+
+    <!-- Modal for editing booking -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()">&times;</span>
+            <h2>Edit Booking</h2>
+            <form id="editForm">
+                <label for="editDate">Select Date:</label>
+                <input type="date" id="editDate" name="editDate" required>
+                <label for="editTime">Select Time:</label>
+                <input type="time" id="editTime" name="editTime" required>
+                <label for="editNumTickets">Number of Tickets:</label>
+                <input type="number" id="editNumTickets" name="editNumTickets" min="1" required>
+                <p id="editTotalCost"></p>
+                <input type="submit" value="Update Booking" class="btn">
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Tampa Bay Attractions. All rights reserved.</p>
+    </footer>
+
+
+    <script>
+        // Array to store bookings
+        let bookings = [];
+
+        // Function to open the modal for booking
+        function openModal(attraction) {
+            const modal = document.getElementById('myModal');
+            const title = document.getElementById('modalTitle');
+            const cost = document.getElementById('ticketCost');
+
+            switch (attraction) {
+                case 'Florida Aquarium':
+                    title.textContent = 'Book Tickets for The Florida Aquarium';
+                    cost.textContent = 'Ticket Cost: $30 per person';
+                    break;
+                case 'Busch Gardens':
+                    title.textContent = 'Book Passes for Busch Gardens';
+                    cost.textContent = 'Pass Cost: $50 per person';
+                    break;
+                case 'Clearwater Beach':
+                    title.textContent = 'Rent a Tent at Clearwater Beach';
+                    cost.textContent = 'Tent Rental Cost: $50 per day';
+                    break;
+                default:
+                    title.textContent = 'Book Tickets';
+                    cost.textContent = '';
+            }
+
+            modal.style.display = 'block';
+        }
+
+        // Function to close the modal for booking
+        function closeModal() {
+            const modal = document.getElementById('myModal');
+            modal.style.display = 'none';
+        }
+
+        // Function to open the modal for managing bookings
+        function openManageModal(attraction) {
+            const manageModal = document.getElementById('manageModal');
+            const manageTitle = document.getElementById('manageModalTitle');
+
+            switch (attraction) {
+                case 'aquarium':
+                    manageTitle.textContent = 'Manage Your Bookings for The Florida Aquarium';
+                    break;
+                case 'buschgardens':
+                    manageTitle.textContent = 'Manage Your Bookings for Busch Gardens';
+                    break;
+                case 'beach':
+                    manageTitle.textContent = 'Manage Your Bookings for Clearwater Beach';
+                    break;
+                default:
+                    manageTitle.textContent = 'Manage Your Bookings';
+            }
+
+            manageModal.style.display = 'block';
+        }
+
+        // Function to close the modal for managing bookings
+        function closeManageModal() {
+            const manageModal = document.getElementById('manageModal');
+            manageModal.style.display = 'none';
+        }
+
+        // Function to open the modal for editing booking
+        function openEditModal() {
+            const editModal = document.getElementById('editModal');
+            editModal.style.display = 'block';
+        }
+
+        // Function to close the modal for editing booking
+        function closeEditModal() {
+            const editModal = document.getElementById('editModal');
+            editModal.style.display = 'none';
+        }
+
+        // Function to handle booking submission
+        function handleBooking(event) {
+            event.preventDefault();
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const numTickets = document.getElementById('numTickets').value;
+
+            const totalCost = parseInt(numTickets) * 30; // Assuming ticket cost is $30 per person
+
+            const booking = {
+                date,
+                time,
+                numTickets,
+                totalCost
+            };
+
+            bookings.push(booking);
+
+            closeModal();
+            displayBookings();
+        }
+
+        // Function to display bookings
+        function displayBookings() {
+            const bookingsList = document.getElementById('bookingsList');
+            bookingsList.innerHTML = '';
+
+            bookings.forEach((booking, index) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Booking ${index + 1}: Date - ${booking.date}, Time - ${booking.time}, Tickets - ${booking.numTickets}, Total Cost - $${booking.totalCost}`;
+                bookingsList.appendChild(listItem);
+            });
+        }
+
+        // Function to handle editing booking
+        function handleEdit(event) {
+            event.preventDefault();
+            const editDate = document.getElementById('editDate').value;
+            const editTime = document.getElementById('editTime').value;
+            const editNumTickets = document.getElementById('editNumTickets').value;
+
+            const totalCost = parseInt(editNumTickets) * 30; // Assuming ticket cost is $30 per person
+
+            const editedBooking = {
+                date: editDate,
+                time: editTime,
+                numTickets: editNumTickets,
+                totalCost
+            };
+
+            // Replace the existing booking with the edited one
+            const index = 0; // Replace this with the actual index of the booking to edit
+            bookings[index] = editedBooking;
+
+            closeEditModal();
+            displayBookings();
+        }
+
+        // Function to handle booking cancellation
+        function cancelBooking() {
+            // Implement cancellation logic here
+            const index = 0; // Replace this with the actual index of the booking to cancel
+            bookings.splice(index, 1);
+
+            closeManageModal();
+            displayBookings();
+        }
+
+        // Attach event listeners
+        document.getElementById('bookingForm').addEventListener('submit', handleBooking);
+        document.getElementById('editForm').addEventListener('submit', handleEdit);
+    </script>
+</body>

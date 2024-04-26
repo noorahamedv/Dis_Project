@@ -1,0 +1,134 @@
+﻿@{
+    ViewData["Title"] = "Reviews";
+}
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tampa Bay Attractions - Reviews</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional styles for reviews page */
+        .custom-body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-image: url("../images/review.jpg"); /* Add your background image URL here */
+            background-size: cover;
+            background-position: center;
+        }
+
+        header {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: right;
+        }
+
+            nav ul li {
+                display: inline;
+                margin-left: 20px;
+            }
+
+                nav ul li a {
+                    color: #000;
+                    text-decoration: none;
+                    font-size: 24px;
+                    font-weight: bold;
+                    background-color: #f2f2f2;
+                    padding: 10px 15px;
+                    border-radius: 5px;
+                    transition: background-color 0.3s;
+                }
+
+                    nav ul li a:hover {
+                        background-color: #ddd;
+                    }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            padding: 20px;
+            margin-top: 100px;
+        }
+
+            .main-content h1 {
+                font-size: 48px;
+                margin-bottom: 20px;
+                font-weight: bold;
+                background-color: rgba(255, 255, 255, 0.7);
+                padding: 10px 20px;
+                border-radius: 10px;
+            }
+
+            .main-content p {
+                font-size: 20px;
+                color: #555;
+                margin-bottom: 30px;
+            }
+
+        .testimonial-container {
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+        }
+
+            .testimonial-container p {
+                font-size: 18px;
+                color: #333;
+                margin-bottom: 10px;
+                font-weight: bold;
+            }
+
+            .testimonial-container .author {
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+    </style>
+</head>
+<body class="custom-body">
+    <header>
+        <nav>
+            <ul>
+                <li>@Html.ActionLink("Home", "Index", "", null, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("Attractions", "Attractions", "", null, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("Reviews", "Reviews", "", null, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("Statistics", "Statistics", "", null, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("About Us", "Aboutus", "", null, new { @class = "nav-link" })</li>
+            </ul>
+        </nav>
+    </header>
+    <div class="main-content">
+        <h1>Customer Reviews</h1>
+        <div class="testimonial-container">
+            <p class="review">My trip to Tampa Bay was nothing short of magical. The moment I set foot in this vibrant city, I was greeted with warm sunshine and a welcoming atmosphere. From the stunning beaches to the bustling downtown area, there was never a dull moment. One of the highlights of my visit was exploring the historic Ybor City, with its charming cobblestone streets and rich cultural heritage. I also had the opportunity to indulge in some delicious Cuban cuisine and immerse myself in the local art scene. Overall, my experience in Tampa Bay was unforgettable, and I can't wait to return!</p>
+            <p class="author">- Emily Anderson</p>
+        </div>
+
+        <div class="testimonial-container">
+            <p class="review">As a nature lover, Tampa Bay exceeded all my expectations. I spent my days exploring the pristine natural beauty of the area, from the breathtaking Everglades to the tranquil Tampa Bay Estuary. One of the highlights of my trip was kayaking along the crystal-clear waters of Weeki Wachee Springs, where I had the chance to encounter manatees in their natural habitat. Additionally, the city's commitment to conservation and sustainability was truly inspiring. Whether you're an outdoor enthusiast or simply looking to reconnect with nature, Tampa Bay is the perfect destination.</p>
+            <p class="author">- Michael Johnson</p>
+        </div>
+
+        <div class="testimonial-container">
+            <p class="review">My family and I recently visited Tampa Bay for a week-long vacation, and we were blown away by the variety of attractions and activities the city has to offer. From thrilling roller coasters at Busch Gardens to educational adventures at the Museum of Science & Industry, there was something for everyone to enjoy. We also took advantage of the city's vibrant cultural scene, attending live performances at the Straz Center for the Performing Arts and exploring the eclectic shops and galleries in the historic Hyde Park neighborhood. Overall, our trip to Tampa Bay was filled with unforgettable memories, and we can't wait to come back for another visit!</p>
+            <p class="author">- Sarah Williams</p>
+        </div>
+        <div class="testimonial-container">
+            <p class="review">Exploring Tampa Bay was an absolute delight! From the lively atmosphere of Channelside Bay Plaza to the peaceful serenity of Lettuce Lake Park, every corner of this city offers something unique. One of the highlights of my trip was visiting the historic Tampa Theatre, with its stunning architecture and timeless charm. I also couldn't resist indulging in some delicious seafood at the renowned Columbia Restaurant in Ybor City. Overall, my experience in Tampa Bay was filled with unforgettable moments, and I can't wait to return to discover even more hidden gems!</p>
+            <p class="author">- Jessica Brown</p>
+        </div>
+    </div>
+</body>

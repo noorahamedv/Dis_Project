@@ -1,0 +1,230 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tampa Bay Attractions - Statistics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        canvas {
+            margin-bottom: 20px;
+        }
+
+        /* Additional styles for reviews page */
+        .custom-body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-image: url("../images/review.jpg"); /* Add your background image URL here */
+            background-size: cover;
+            background-position: center;
+        }
+
+        header {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: right;
+        }
+
+            nav ul li {
+                display: inline;
+                margin-left: 20px;
+            }
+
+                nav ul li a {
+                    color: #000;
+                    text-decoration: none;
+                    font-size: 24px;
+                    font-weight: bold;
+                    background-color: #f2f2f2;
+                    padding: 10px 15px;
+                    border-radius: 5px;
+                    transition: background-color 0.3s;
+                }
+
+                    nav ul li a:hover {
+                        background-color: #ddd;
+                    }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            padding: 20px;
+            margin-top: 100px;
+        }
+
+            .main-content h1 {
+                font-size: 48px;
+                margin-bottom: 20px;
+                font-weight: bold;
+                background-color: rgba(255, 255, 255, 0.7);
+                padding: 10px 20px;
+                border-radius: 10px;
+            }
+
+            .main-content p {
+                font-size: 20px;
+                color: #555;
+                margin-bottom: 30px;
+            }
+
+        .testimonial-container {
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+        }
+
+            .testimonial-container p {
+                font-size: 18px;
+                color: #333;
+                margin-bottom: 10px;
+                font-weight: bold;
+            }
+
+            .testimonial-container .author {
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li>@Html.ActionLink("Home", "Index", "", null, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("Attractions", "Attractions", "", null, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("Reviews", "Reviews", "", null, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("Statistics", "Statistics", "", null, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("About Us", "Aboutus", "", null, new { @class = "nav-link" })</li>
+            </ul>
+        </nav>
+    </header>
+
+    <br>
+    <br>
+    <br>
+
+    <div class="container">
+        <h1>Attraction Statistics</h1>
+
+        <!-- Bar Chart (Number of Visitors) -->
+        <canvas id="barChart" width="400" height="200"></canvas>
+        <p>The bar chart visually represents the number of visitors for three prominent attractions in Tampa Bay: the Florida Aquarium, Busch Gardens, and Clearwater Beach. Each bar corresponds to the visitor count for a specific attraction, providing a straightforward comparison between them. Clearwater Beach appears to have the highest number of visitors, followed by the Florida Aquarium and Busch Gardens. The chart's simplicity and clarity make it easy to discern the differences in visitor numbers among the attractions.</p>
+
+        <!-- Line Chart (Temperature Trends) -->
+        <canvas id="lineChart" width="400" height="200"></canvas>
+        <p>The line chart depicts the temperature trends over a six-month period, from January to June. Each point on the line represents the recorded temperature for a specific month, offering insights into seasonal variations. The chart reveals a gradual increase in temperature from January to June, indicating a typical warming trend. This visualization allows viewers to identify patterns and fluctuations in temperature over time, aiding in understanding the climate trends in Tampa Bay.</p>
+
+        <!-- Pie Chart (Revenue Distribution) -->
+        <canvas id="pieChart" width="400" height="200"></canvas>
+        <p>The pie chart illustrates the distribution of revenue among the Florida Aquarium, Busch Gardens, and Clearwater Beach. Each segment of the pie represents the proportion of revenue generated by a particular attraction. Clearwater Beach contributes the most to the total revenue, followed by the Florida Aquarium and Busch Gardens. This visualization effectively highlights the relative contribution of each attraction to the overall revenue, providing a clear understanding of revenue distribution among the attractions.</p>
+    </div>
+
+    <script>
+        // Bar Chart
+        var ctxBar = document.getElementById('barChart').getContext('2d');
+        var barChart = new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: ['Florida Aquarium', 'Busch Gardens', 'Clearwater Beach'],
+                datasets: [{
+                    label: 'Number of Visitors',
+                    data: [5000, 3000, 7000],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Line Chart
+        var ctxLine = document.getElementById('lineChart').getContext('2d');
+        var lineChart = new Chart(ctxLine, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Temperature (°C)',
+                    data: [10, 12, 15, 18, 20, 22],
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 2,
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: false
+                    }
+                }
+            }
+        });
+
+        // Pie Chart
+        var ctxPie = document.getElementById('pieChart').getContext('2d');
+        var pieChart = new Chart(ctxPie, {
+            type: 'pie',
+            data: {
+                labels: ['Florida Aquarium', 'Busch Gardens', 'Clearwater Beach'],
+                datasets: [{
+                    label: 'Revenue',
+                    data: [3000, 2000, 4000],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            }
+        });
+    </script>
+</body>
